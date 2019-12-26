@@ -3,6 +3,7 @@ import morgan from "morgan";
 import helmet from "helmet";
 import bodyParser from "body-parser";
 import cookieParser from "cookie-parser";
+import { localsMiddleware } from "./middlewares";
 import userRouter from "./routers/userRouter";
 import videoRouter from "./routers/videoRoter";
 import globalRouter from "./routers/globalRouter";
@@ -10,12 +11,13 @@ import globalRouter from "./routers/globalRouter";
 import routes from "./routes";
 const app = express();
 
+app.use(helmet()); // for securerity
 app.set("view engine", "pug");
 app.use(cookieParser());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(helmet()); // for securerity
 app.use(morgan("dev")); // for logging
+app.use(localsMiddleware);
 
 app.use(routes.home, globalRouter);
 app.use(routes.users, userRouter); //get이 아닌 use사용, /user를 통해 들어온것은 userRouter 사용하겠다
