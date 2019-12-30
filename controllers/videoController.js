@@ -8,7 +8,7 @@ export const search = (req, res) => {
     const {
         query: { term: searchingBy }
     } = req; // 최신 방식
-    res.render("search", { pageTitle: "Search", searchingBy });
+    res.render("search", { pageTitle: "Search", searchingBy, videos });
 };
 
 export const upload = (req, res) =>
