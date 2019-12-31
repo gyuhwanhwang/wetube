@@ -1,6 +1,13 @@
 import routes from "../routes";
-export const home = (req, res) => {
-    res.render("home", { pageTitle: "Home", videos });
+import Video from "../models/Video";
+export const home = async (req, res) => {
+    try {
+        const videos = await Video.find({}); // 모든 Video를 찾아줌
+        res.render("home", { pageTitle: "Home", videos });
+    } catch (error) {
+        console.log(error);
+        res.render("home", { pageTitle: "Home", videos: [] });
+    }
 };
 
 export const search = (req, res) => {
